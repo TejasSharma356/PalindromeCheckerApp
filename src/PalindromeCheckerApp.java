@@ -1,16 +1,16 @@
 /**
  * MAIN CLASS: PalindromeCheckerApp
- * Use Case 10: Case-Insensitive & Space-Ignored Palindrome
+ * Use Case 11: Object-Oriented Palindrome Service
  *
  * Description:
- * Ignore spaces and case while checking a palindrome.
+ * Encapsulate palindrome logic in a class.
  *
  * Key Concepts Used:
- * String preprocessing
- * Regular expressions
+ * Encapsulation
+ * Single Responsibility Principle
  *
  * @author Tejas Sharma
- * @version 10.0
+ * @version 11.0
  */
 
 import java.util.Deque;
@@ -21,34 +21,45 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args){
 
-        // Input string with spaces and mixed case
-        String input = "Never Odd Or Even";
+        // Create PalindromeChecker object
+        PalindromeChecker checker = new PalindromeChecker();
 
-        // Normalize the string:
-        // 1. Convert to lowercase
-        // 2. Remove all spaces using regex
-        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+        // Input string
+        String input = "madam";
 
-        // Palindrome check using two-pointer approach
-        int start = 0;
-        int end = normalized.length() - 1;
+        // Check palindrome
+        boolean result = checker.checkPalindrome(input);
 
-        boolean isPalindrome = true;
-
-        while (start < end) {
-            if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
-        }
-
-        // Print result
-        if (isPalindrome) {
-            System.out.println("\"" + input + "\" is a Palindrome");
+        // Display result
+        if (result) {
+            System.out.println(input + " is a Palindrome");
         } else {
-            System.out.println("\"" + input + "\" is NOT a Palindrome");
+            System.out.println(input + " is NOT a Palindrome");
         }
     }
+
+    // Palindrome service class (Encapsulation)
+    class PalindromeChecker {
+
+        // Public method to check palindrome
+        public boolean checkPalindrome(String word) {
+
+            // Convert string to char array (internal data structure)
+            char[] characters = word.toCharArray();
+
+            int start = 0;
+            int end = characters.length - 1;
+
+            // Two-pointer comparison
+            while (start < end) {
+                if (characters[start] != characters[end]) {
+                    return false;
+                }
+                start++;
+                end--;
+            }
+            return true;
+        }
+    }
+
 }
