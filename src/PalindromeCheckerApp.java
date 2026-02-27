@@ -1,47 +1,37 @@
 /**
- * MAIN CLASS: UseCase1; PalindromeCheckerApp
- * Use Case 1: Hardcoded palindrome message
+ * MAIN CLASS: PalindromeCheckerApp
+ * Use Case 5: Stack-Based Palindrome Checker
  *
- * Description: This class shows the basic palindrome validation using a hardcode string value
- *  *
- *  * At this stage, the application consists of:
- *  *  - It stores predefined value
- *  *  - Compares characters from both ends of the string
- *  *  - Checks if the result is a palindrome or not. Finally displays the result
- *  *
- *  *  palindrome logic has been implemented
- *  *
- *  *
- *  * @author Tejas Sharma
- *  * @version 1.5
+ * Description:
+ * Use stack to reverse characters and validate palindrome.
  *
- * */
-
+ * Key Concepts Used:
+ *  - Stack
+ *  - Push Operation
+ *  - Pop Operation
+ *  - Reversal Logic
+ *
+ * @author Tejas Sharma
+ * @version 5.0
+ */
+import java.util.Stack;
 public class PalindromeCheckerApp {
-    /**
-     *Palindrome
-     * */
+
     public static void main(String[] args){
 
-        String word = "radar";
-        char[] chars = word.toCharArray();
-
-        int start = 0;
-        int end = chars.length - 1;
+        String word = "noon";
+        Stack<Character> stack = new Stack<>();
+        for (char c : word.toCharArray()){
+            stack.push(c);
+        }
 
         boolean isPalindrome = true;
-
-        while (start < end) {
-
-            if (chars[start] != chars[end]) {
+        for (char c : word.toCharArray()){
+            if (c != stack.pop()){
                 isPalindrome = false;
                 break;
             }
-
-            start++;
-            end--;
         }
-
         if (isPalindrome) {
             System.out.println(word + " is a palindrome");
         } else {
