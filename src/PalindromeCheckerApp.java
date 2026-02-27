@@ -1,15 +1,14 @@
 /**
  * MAIN CLASS: PalindromeCheckerApp
- * Use Case 8: Linked List Based Palindrome Checker
+ * Use Case 9: Recursive Palindrome Checker
  *
  * Description:
- * Check palindrome using singly linked list.
+ * Check palindrome using recursion
  *
  * Key Concepts Used:
- * Singly Linked List – A dynamic data structure where elements are connected using node references.
- * Node Traversal – Sequential access to elements using next references.
- * Fast and Slow Pointer Technique – Used to find the middle of the linked list efficiently.
- * In-Place Reversal – Reverses the second half of the list without extra memory.
+ * Recursion – A technique where a method calls itself to solve smaller subproblems.
+ * Base Condition – Prevents infinite recursion and terminates the recursive calls.
+ * Call Stack – Memory structure used to manage method calls during recursion.
  *
  * @author Tejas Sharma
  * @version 8.0
@@ -20,26 +19,14 @@ import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
 
-    // Definition of singly linked list node
-    static class Node {
-        char data;
-        Node next;
-
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
 
     public static void main(String[] args){
 
-        // Input string
-        String word = "madam";
+        // String to be checked
+        String word = "level";
 
-        // Convert string to linked list
-        Node head = createLinkedList(word);
-
-        // Check if palindrome
-        boolean isPalindrome = isPalindrome(head);
+        // Call recursive palindrome check
+        boolean isPalindrome = isPalindrome(word, 0, word.length() - 1);
 
         // Print result
         if (isPalindrome) {
@@ -49,72 +36,20 @@ public class PalindromeCheckerApp {
         }
     }
 
-        // Create linked list from string
-        private static Node createLinkedList(String word) {
-            Node head = null;
-            Node tail = null;
+    // Recursive method to check palindrome
+    private static boolean isPalindrome(String word, int start, int end) {
 
-            for (int i = 0; i < word.length(); i++) {
-                Node newNode = new Node(word.charAt(i));
-
-                if (head == null) {
-                    head = newNode;
-                    tail = newNode;
-                } else {
-                    tail.next = newNode;
-                    tail = newNode;
-                }
-            }
-            return head;
+        // Base condition: pointers crossed or met
+        if (start >= end) {
+            return true;
         }
 
-        // Palindrome check using linked list
-        private static boolean isPalindrome(Node head) {
-            if (head == null || head.next == null) {
-                return true;
-            }
-
-            // Find middle using fast & slow pointers
-            Node slow = head;
-            Node fast = head;
-
-            while (fast.next != null && fast.next.next != null) {
-                slow = slow.next;
-                fast = fast.next.next;
-            }
-
-            // Reverse second half
-            Node secondHalf = reverseList(slow.next);
-
-            // Compare both halves
-            Node firstHalf = head;
-            Node tempSecond = secondHalf;
-
-            boolean result = true;
-
-            while (tempSecond != null) {
-                if (firstHalf.data != tempSecond.data) {
-                    result = false;
-                    break;
-                }
-                firstHalf = firstHalf.next;
-                tempSecond = tempSecond.next;
-            }
-
-            return result;
+        // If characters do not match
+        if (word.charAt(start) != word.charAt(end)) {
+            return false;
         }
 
-        // Reverse linked list
-        private static Node reverseList(Node head) {
-            Node prev = null;
-            Node current = head;
-
-            while (current != null) {
-                Node nextNode = current.next;
-                current.next = prev;
-                prev = current;
-                current = nextNode;
-            }
-            return prev;
-        }
+        // Recursive call with reduced problem
+        return isPalindrome(word, start + 1, end - 1);
+    }
 }
