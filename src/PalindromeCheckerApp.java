@@ -1,18 +1,19 @@
 /**
  * MAIN CLASS: UseCase1; PalindromeCheckerApp
- * Use Case 1: Application Entry & Welcome Message
+ * Use Case 1: Hardcoded palindrome message
  *
- * Description: This class shows the entry point of the PCMS (Palindrome Checker Management System)
- * At this stage, the application consists of:
- *  - It executes in the main() method
- *  - Displays opening message of the app
- *  - Shows the system version
- *
- *  No palindrome logic has been implemented yet
- *  Our Goal is to establish a opening message or clear startup flow
- *
- * @author
- * @version 1.0
+ * Description: This class shows the basic palindrome validation using a hardcode string value
+ *  *
+ *  * At this stage, the application consists of:
+ *  *  - It stores predefined value
+ *  *  - Compares characters from both ends of the string
+ *  *  - Checks if the result is a palindrome or not. Finally displays the result
+ *  *
+ *  *  palindrome logic has been implemented
+ *  *
+ *  *
+ *  * @author Tejas Sharma
+ *  * @version 1.5
  *
  * */
 
@@ -21,8 +22,20 @@ public class PalindromeCheckerApp {
      *Palindrome
      * */
     public static void main(String[] args){
-        System.out.println("\nWelcome to the Palindrome Checker Management System");
-        System.out.println("Version: 1.0");
-        System.out.println("System initialized Successfully");
+        String word = "madam";
+        boolean isPalindrome = true;
+        int n = word.length() - 1;
+        for(int i = 0; i < word.length()/2; i++){
+            if(word.charAt(i) != word.charAt(n - i)){
+                isPalindrome = false;
+                break;
+            }
+        }
+        if(isPalindrome) {
+            System.out.println(word + "is a palindrome");
+        }
+        else{
+            System.out.println(word + "is not a palindrome");
+        }
     }
 }
