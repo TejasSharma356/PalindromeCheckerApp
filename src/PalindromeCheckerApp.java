@@ -1,17 +1,16 @@
 /**
  * MAIN CLASS: PalindromeCheckerApp
- * Use Case 9: Recursive Palindrome Checker
+ * Use Case 10: Case-Insensitive & Space-Ignored Palindrome
  *
  * Description:
- * Check palindrome using recursion
+ * Ignore spaces and case while checking a palindrome.
  *
  * Key Concepts Used:
- * Recursion – A technique where a method calls itself to solve smaller subproblems.
- * Base Condition – Prevents infinite recursion and terminates the recursive calls.
- * Call Stack – Memory structure used to manage method calls during recursion.
+ * String preprocessing
+ * Regular expressions
  *
  * @author Tejas Sharma
- * @version 8.0
+ * @version 10.0
  */
 
 import java.util.Deque;
@@ -22,34 +21,34 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args){
 
-        // String to be checked
-        String word = "level";
+        // Input string with spaces and mixed case
+        String input = "Never Odd Or Even";
 
-        // Call recursive palindrome check
-        boolean isPalindrome = isPalindrome(word, 0, word.length() - 1);
+        // Normalize the string:
+        // 1. Convert to lowercase
+        // 2. Remove all spaces using regex
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+
+        // Palindrome check using two-pointer approach
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        boolean isPalindrome = true;
+
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
 
         // Print result
         if (isPalindrome) {
-            System.out.println(word + " is a Palindrome");
+            System.out.println("\"" + input + "\" is a Palindrome");
         } else {
-            System.out.println(word + " is NOT a Palindrome");
+            System.out.println("\"" + input + "\" is NOT a Palindrome");
         }
-    }
-
-    // Recursive method to check palindrome
-    private static boolean isPalindrome(String word, int start, int end) {
-
-        // Base condition: pointers crossed or met
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters do not match
-        if (word.charAt(start) != word.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call with reduced problem
-        return isPalindrome(word, start + 1, end - 1);
     }
 }
